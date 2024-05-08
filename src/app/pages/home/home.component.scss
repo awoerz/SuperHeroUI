@@ -1,0 +1,43 @@
+$primary-organge: #f26a21;
+
+.table-button-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    .button-row {
+        display: flex;
+        align-items: center;
+        button {
+            margin-right: 1rem;
+            .icon {
+                margin: 0;
+            }
+        }
+        mat-form-field {
+            margin-right: 1rem;
+        }
+    }
+}
+
+th[class*="mat-column-"] {
+    padding: .25em 1em;
+    background-color: $primary-organge;
+    color: white;
+    font-weight: 500;
+}
+
+//::ng-deep needed to get color to change for sort arrow and had to add important to override default style
+::ng-deep .mat-sort-header-arrow {
+    color: white !important;
+}
+
+::ng-deep .mat-checkbox-frame {
+    color: white;
+}
+
+thead {
+    input[type=checkbox] {
+        color: white;
+    }
+}

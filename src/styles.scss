@@ -10,32 +10,119 @@
 @include mat.core();
 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
+$tmh-orange-palette: (
+  50: #ffece0,
+  100: #ffece0,
+  200: #ffab7a,
+  300: #ffab7a,
+  400: #f26a21,
+  500: #f26a21, 
+  600: #c74900, 
+  700: #c74900, 
+  800: #943600, 
+  900: #943600,
+  contrast: (
+    50: white,
+    100: white,
+    200: white, 
+    300: white, 
+    400: white, 
+    500: white, 
+    600: white, 
+    700: white, 
+    800: white, 
+    900: white,
+  ) 
+);
+
+$tmh-gray-palette: (
+  50: #f7f7f8,
+  100: #f7f7f8,
+  200: #b6b8b9,
+  300: #b6b8b9,
+  400: #75787b,
+  500: #75787b, 
+  600: #616365, 
+  700: #616365, 
+  800: #434546, 
+  900: #434546,
+  contrast: (
+    50: white,
+    100: white,
+    200: white, 
+    300: white, 
+    400: white, 
+    500: white, 
+    600: white, 
+    700: white, 
+    800: white, 
+    900: white,
+  ) 
+);
+
+$tmh-error-palette: (
+  50: #f2cdd1,
+  100: #f2cdd1,
+  200: #f2cdd1,
+  300: #d93b3b,
+  400: #d93b3b,
+  500: #d93b3b, 
+  600: #d93b3b, 
+  700: #930011, 
+  800: #930011, 
+  900: #930011,
+  contrast: (
+    50: rgba(black, .87),
+    100: rgba(black, .87),
+    200: rgba(black, .87), 
+    300: rgba(black, .87), 
+    400: rgba(black, .87), 
+    500: rgba(black, .87), 
+    600: rgba(black, .87), 
+    700: white, 
+    800: white, 
+    900: white,
+  ) 
+);
+
+$primary-orange: #f26a21;
+$primary-gray: #75787b;
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$SuperHeroUI-primary: mat.define-palette(mat.$indigo-palette);
-$SuperHeroUI-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$angular-pg-primary: mat.define-palette($tmh-orange-palette, 500);
+$angular-pg-accent: mat.define-palette($tmh-gray-palette, 500);
 
 // The warn palette is optional (defaults to red).
-$SuperHeroUI-warn: mat.define-palette(mat.$red-palette);
+$angular-pg-warn: mat.define-palette($tmh-error-palette);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$SuperHeroUI-theme: mat.define-light-theme((
+$angular-pg-theme: mat.define-light-theme((
   color: (
-    primary: $SuperHeroUI-primary,
-    accent: $SuperHeroUI-accent,
-    warn: $SuperHeroUI-warn,
-  ),
-  typography: mat.define-typography-config(),
-  density: 0
+    primary: $angular-pg-primary,
+    accent: $angular-pg-accent,
+    warn: $angular-pg-warn,
+  )
 ));
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include mat.all-component-themes($SuperHeroUI-theme);
+@include mat.all-component-themes($angular-pg-theme);
 
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, Arial, sans-serif; }
+
+.btn-primary {
+  font-weight: 700;
+  background-color: black !important;
+  color: white !important;
+  font-size: 19px;
+  border: 1px solid white !important;
+  &:hover {
+    color: $primary-orange !important;
+    border: 1px solid $primary-orange !important;
+  }
+}
