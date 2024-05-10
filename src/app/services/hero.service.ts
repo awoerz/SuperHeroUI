@@ -24,16 +24,21 @@ export class HeroService {
   }
 
   // Placeholders
-  addHero(hero: Hero): void {
-    this._http.post(this.url + 'api/SuperHero', hero).pipe(
+  addHero(newHero: Hero): void {
+  this._http.post<Hero>(this.url + 'api/SuperHero', newHero)
+    .pipe(
       catchError(this.handleError<Hero>('addHero'))
+    )
+    .subscribe(
+      (hero) => console.log(`Posted ${hero}`)
     )
   }
 
   updateHero(hero: Hero): void {
-    this._http.put(this.url + 'api/SuperHero', hero).pipe(
-      catchError(this.handleError<Hero>('updateHero'))
-    )
+    this._http.put(this.url + 'api/SuperHero', hero)
+      .pipe(
+        catchError(this.handleError<Hero>('updateHero'))
+      )
   }
 
   deleteHero(id: number): void {

@@ -1,4 +1,5 @@
 import { AfterRenderOptions, Component, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { FormsModule } from '@angular/forms';
 
@@ -29,7 +30,7 @@ import { MatIconModule } from '@angular/material/icon';
   selector: 'app-home',
   standalone: true,
   providers: [provideNativeDateAdapter()],
-  imports: [MatTableModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MatButtonModule, MatIconModule, MatDatepickerModule, MatSortModule, FormsModule],
+  imports: [MatTableModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MatButtonModule, MatIconModule, MatDatepickerModule, MatSortModule, FormsModule, RouterLink, RouterLinkActive ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -45,6 +46,15 @@ export class HomeComponent implements OnInit {
 
   //Lifecycle
   ngOnInit() {
+    this.getHeroes();
+  }
+
+  ngAfterViewChecked() {
+    this.currentHeroes.sort = this.sort;
+  }
+
+  //Retrieve Heroes From API
+  getHeroes() {
     this._heroService.getHeroes().subscribe(res => {
       this.heroList = res;
       this.currentHeroes = new MatTableDataSource(res);
@@ -52,13 +62,13 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  ngAfterViewChecked() {
-    this.currentHeroes.sort = this.sort;
-  }
-
   //Add Hero Button Functions
   openCreateDialog(): void {
     const dialogRef = this.dialog.open(CreateHeroDialogComponent, {});
+    dialogRef.afterClosed().subscribe(res => {
+      console.log(res);
+      this.getHeroes();
+    })
   }
 
   //Edit Hero Button Functions
@@ -142,7 +152,4 @@ export class HomeComponent implements OnInit {
       alert("You haven't selected anything")
     }
   }
-
-
-
 }

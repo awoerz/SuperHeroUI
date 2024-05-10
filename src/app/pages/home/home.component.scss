@@ -8,6 +8,9 @@ $primary-organge: #f26a21;
     .button-row {
         display: flex;
         align-items: center;
+        a {
+            margin-right: 1rem;
+        }
         button {
             margin-right: 1rem;
             .icon {
