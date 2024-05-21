@@ -23,7 +23,7 @@ export class PaginationTestComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  ngOnInit() {
+  constructor() {
     this.getHeroesFromService();
   }
 

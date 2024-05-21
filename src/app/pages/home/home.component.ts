@@ -40,7 +40,6 @@ export class HomeComponent {
   // Dependency Injection
   private _heroService = inject(HeroService)
   private _excelExportService = inject(ExportToExcelService)
-  private _liveAnnouncer = inject(LiveAnnouncer)
   dialog = inject(MatDialog)
 
   // table related data
@@ -60,24 +59,17 @@ export class HomeComponent {
   constructor() {
     this.getHeroes();
   }
-    
-  // // Lifecycle Methods
-  // ngOnInit() {
-  //   this.getHeroes(); // Populate table on page load
-  // }
 
-  ngAfterViewChecked() {
+  ngAfterViewInit() {
+    this.currentHeroes.paginator = this.paginator;
     this.currentHeroes.sort = this.sort;
-    //this.currentHeroes.paginator = this.paginator
   }
 
   //Retrieve Heroes From API
   getHeroes() {
     this._heroService.getHeroes().subscribe(res => {
       this.tableData = res;
-      this.currentHeroes = new MatTableDataSource(res);
-      this.currentHeroes.paginator = this.paginator;
-      this.currentHeroes.sort = this.sort;
+      this.currentHeroes.data = this.tableData;
     });
   }
 
