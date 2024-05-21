@@ -1,1 +1,44 @@
-<p>pagination-test works!</p>
+<h1>Test Pagination Table</h1>
+
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+  
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by id">ID</th>
+        <td mat-cell *matCellDef="let hero"> {{hero.id}} </td>
+      </ng-container>
+  
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name"> Name </th>
+        <td mat-cell *matCellDef="let hero"> {{hero.name}} </td>
+      </ng-container>
+  
+      <!-- First Name Column -->
+      <ng-container matColumnDef="firstName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by firstName"> First Name </th>
+        <td mat-cell *matCellDef="let hero"> {{hero.firstName}} </td>
+      </ng-container>
+  
+      <!-- Last Name Column -->
+      <ng-container matColumnDef="lastName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by lastName"> Last Name </th>
+        <td mat-cell *matCellDef="let hero"> {{hero.lastName}} </td>
+      </ng-container>
+
+    <!-- City Column -->
+    <ng-container matColumnDef="place">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by place"> City </th>
+        <td mat-cell *matCellDef="let hero"> {{hero.place}} </td>
+    </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                   showFirstLastButtons
+                   aria-label="Select page of heroes">
+    </mat-paginator>
+  </div>
