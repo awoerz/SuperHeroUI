@@ -39,12 +39,19 @@ export class HeroService {
       .pipe(
         catchError(this.handleError<Hero>('updateHero'))
       )
+      .subscribe(
+        (hero) => console.log(`Updated ${hero}`)
+      )
   }
 
   deleteHero(id: number): void {
-    this._http.delete(this.url + `api/SuperHero/${id}`).pipe(
-      catchError(this.handleError<Hero>('deleteHero'))
-    )
+    this._http.delete(this.url + `api/SuperHero/${id}`)
+      .pipe(
+        catchError(this.handleError<Hero>('deleteHero'))
+      )
+      .subscribe(
+        (id) => console.log(`Hero with id ${id} has been deleted.`)
+      )
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

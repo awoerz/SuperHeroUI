@@ -1,4 +1,4 @@
-import { AfterRenderOptions, Component, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { AfterRenderOptions, Component, OnChanges, OnInit, ViewChild, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { FormsModule } from '@angular/forms';
@@ -15,7 +15,7 @@ import { CreateHeroDialogComponent } from '../../components/create-hero-dialog/c
 // Material UI Imports
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { provideNativeDateAdapter } from '@angular/material/core';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatSort, Sort, MatSortModule} from '@angular/material/sort';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -24,49 +24,67 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
+import { DeleteHeroDialogComponent } from '../../components/delete-hero-dialog/delete-hero-dialog.component';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
   providers: [provideNativeDateAdapter()],
-  imports: [MatTableModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MatButtonModule, MatIconModule, MatDatepickerModule, MatSortModule, FormsModule, RouterLink, RouterLinkActive ],
+  imports: [MatTableModule, MatPaginatorModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MatButtonModule, MatIconModule, MatDatepickerModule, MatSortModule, FormsModule, RouterLink, RouterLinkActive ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent implements OnInit {
-  constructor(private _heroService: HeroService, private _excelExportService: ExportToExcelService, private _liveAnnouncer: LiveAnnouncer, public dialog: MatDialog,) {}
-  heroList: Hero[] = []
-  currentHeroes = new MatTableDataSource(this.heroList)
+export class HomeComponent {
+  // Dependency Injection
+  private _heroService = inject(HeroService)
+  private _excelExportService = inject(ExportToExcelService)
+  private _liveAnnouncer = inject(LiveAnnouncer)
+  dialog = inject(MatDialog)
+
+  // table related data
   displayedColumns = ['select', 'id', 'name', 'firstName', 'lastName', 'place']
+  tableData: Hero[] = []
+  currentHeroes = new MatTableDataSource<Hero>(this.tableData)
+
+  // selection, filter and sort for table
   selection = new SelectionModel<Hero>(true, [])
-  tableId = 'Hero-Table'
   filterValue = '';
   @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  //Lifecycle
-  ngOnInit() {
+  // used for Table Export
+  tableId = 'Hero-Table'
+
+  constructor() {
     this.getHeroes();
   }
+    
+  // // Lifecycle Methods
+  // ngOnInit() {
+  //   this.getHeroes(); // Populate table on page load
+  // }
 
   ngAfterViewChecked() {
     this.currentHeroes.sort = this.sort;
+    //this.currentHeroes.paginator = this.paginator
   }
 
   //Retrieve Heroes From API
   getHeroes() {
     this._heroService.getHeroes().subscribe(res => {
-      this.heroList = res;
+      this.tableData = res;
       this.currentHeroes = new MatTableDataSource(res);
-      console.log(this.currentHeroes)
+      this.currentHeroes.paginator = this.paginator;
+      this.currentHeroes.sort = this.sort;
     });
   }
 
   //Add Hero Button Functions
   openCreateDialog(): void {
     const dialogRef = this.dialog.open(CreateHeroDialogComponent, {});
-    dialogRef.afterClosed().subscribe(res => {
-      console.log(res);
+    dialogRef.afterClosed().subscribe(res =>{
       this.getHeroes();
     })
   }
@@ -74,19 +92,41 @@ export class HomeComponent implements OnInit {
   //Edit Hero Button Functions
   openEditDialog(): void {
     if(this.selection.selected.length == 1) {
+      let heroToPass: Hero = this.selection.selected[0]
       const dialogRef = this.dialog.open(EditHeroDialogComponent, {
+        data: {
+          hero: heroToPass
+        }
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        this.selection.clear(); //This line is required to not break the select all button after closing the delete dialog.
+        this.getHeroes();
+      })
+    } else if(this.selection.selected.length == 0) {
+      alert('Please select a hear you\'d like to edit first')
+    } else {
+      alert('Please select only one hero to edit at a time.')
+    }
+  }
+
+  //Delete Hero Button
+  openDeleteDialog() {
+    if(this.selection.selected.length == 1) {
+      const dialogRef = this.dialog.open(DeleteHeroDialogComponent, {
         data: {
           id: this.selection.selected[0].id,
         }
       });
   
       dialogRef.afterClosed().subscribe(result => {
-        console.log(result)
+        this.selection.clear(); //This line is required to not break the select all button after closing the delete dialog.
+        this.getHeroes();
       })
     } else if(this.selection.selected.length == 0) {
-      alert('Please select a hear you\'d like to edit first')
+      alert('Please select a hear you\'d like to delete first')
     } else {
-      alert('Please select only one hero to edit at a time.')
+      alert('Please select only one hero to delete at a time. Bulk Delete is an administrative function.')
     }
   }
 
@@ -99,24 +139,15 @@ export class HomeComponent implements OnInit {
   applyFilter(event: Event) {
     this.filterValue = (event.target as HTMLInputElement).value;
     this.currentHeroes.filter = this.filterValue.trim().toLowerCase();
+
+    if (this.currentHeroes.paginator) {
+      this.currentHeroes.paginator.firstPage();
+    }
   }
 
   removeFilter() {
     this.filterValue = ''
     this.currentHeroes.filter = this.filterValue.trim().toLowerCase();
-  }
-
-  //sort functions
-  announceSortChange(sortState: Sort) {
-    // This example uses English messages. If your application supports
-    // multiple language, you would internationalize these strings.
-    // Furthermore, you can customize the message to add additional
-    // details about the values being sorted.
-    if (sortState.direction) {
-      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
-    } else {
-      this._liveAnnouncer.announce('Sorting cleared');
-    }
   }
 
   //select functions
@@ -152,4 +183,19 @@ export class HomeComponent implements OnInit {
       alert("You haven't selected anything")
     }
   }
+
+  selectHeroById(id: number): Hero {
+    let returnHero : Hero | undefined = this.tableData.find(hero => hero.id === id)
+    if(!returnHero) {
+      return {
+        id: 0,
+        name: "Empty",
+        firstName: "Not",
+        lastName: "Found",
+        place: "Nowhere"
+      }
+    }
+    return returnHero
+  }
+
 }

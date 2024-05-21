@@ -1,0 +1,10 @@
+<h1>Update my signal</h1>
+
+<input type="text" 
+    [value]="this.signalService.signalValue()"
+    (keyup)="this.updateSignalValue($event)"
+/>
+
+<p>{{this.signalService.signalValue()}}</p>
+
+<a href="/form-test">Got to form</a>

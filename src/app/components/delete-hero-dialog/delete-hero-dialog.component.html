@@ -1,0 +1,12 @@
+<mat-dialog-content>
+    <div class="top-button-container">
+        <mat-icon class="icon" aria-hidden="false" aria-label="close icon" fontIcon="close" (click)="onNoClick()"></mat-icon>
+    </div>
+    <h2>Warning</h2>
+
+    <p>Please confirm that you would like to delete {{heroToDelete.name}} by clicking the DELETE button.</p>
+
+    <button (click)="confirmDelete()" mat-flat-button color="primary">DELETE {{heroToDelete.name}}</button>
+
+</mat-dialog-content>
+
