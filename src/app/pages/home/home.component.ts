@@ -124,7 +124,7 @@ export class HomeComponent {
 
   //export function
   export() {
-    this._excelExportService.exportToExcel(this.tableId, 'HeroExport')
+    this._excelExportService.arrayToExcel(this.tableData, 'HeroExport');
   }
 
   //filter function

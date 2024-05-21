@@ -5,6 +5,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, Sort, MatSortModule } from '@angular/material/sort';
 import { HeroService } from '../../services/hero.service';
+import { TestSubjectService } from '../../services/test-subject.service';
 
 @Component({
   selector: 'app-pagination-test',
@@ -15,6 +16,7 @@ import { HeroService } from '../../services/hero.service';
 })
 export class PaginationTestComponent {
   private _heroService = inject(HeroService)
+
   heroServiceData: Hero[] = []
   
   displayedColumns = ['id', 'name', 'firstName', 'lastName', 'place']

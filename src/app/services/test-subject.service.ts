@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Subject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TestSubjectService {
-  private stateSubject$ = new BehaviorSubject<string>('');
+  public stateSubject$ = new BehaviorSubject<string>('Initial State From Subject');
 
   constructor() { }
 
@@ -18,7 +18,7 @@ export class TestSubjectService {
   }
 
   public updateStateSubject(val: string): void {
-    this.stateSubject$.next('test')
+    this.stateSubject$.next(val)
   }
 
 }

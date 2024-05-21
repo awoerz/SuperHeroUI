@@ -1,10 +1,18 @@
-<h1>Update my signal</h1>
+<h1>Update State</h1>
 
-<input type="text" 
-    [value]="this.signalService.signalValue()"
-    (keyup)="this.updateSignalValue($event)"
-/>
+<div>
+    <h3>Current State:</h3>
+    <p>{{state}}</p>
+</div>
 
-<p>{{this.signalService.signalValue()}}</p>
+<form [formGroup]="stateForm" (ngSubmit)="onSubmit()">
+    <mat-form-field class="example-full-width">
+        <mat-label>Update State</mat-label>
+        <input matInput [formControl]="stateForm.controls.updateState"/>
+    </mat-form-field>
+    <div>
+        <button mat-flat-button color="primary" type="submit" [disabled]="!stateForm.valid">Update State</button>
+    </div>
+</form>
 
-<a href="/form-test">Got to form</a>
+<a mat-raised-button routerLink="/page-test">Got To Test Page</a>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Location } from '@angular/common';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -26,7 +26,8 @@ export class FormTestComponent {
     city: new FormControl('', Validators.required)
   })
 
-  constructor(private _location: Location, private _heroService: HeroService) {}
+  private _location = inject(Location)
+  private _heroService = inject(HeroService)
 
   backClick() {
     this._location.back();
