@@ -70,6 +70,7 @@ export class HomeComponent {
     this._heroService.getHeroes().subscribe(res => {
       this.tableData = res;
       this.currentHeroes.data = this.tableData;
+      console.log(this.tableData)
     });
   }
 

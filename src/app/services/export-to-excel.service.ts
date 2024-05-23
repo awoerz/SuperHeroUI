@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { share } from 'rxjs';
 import * as XLSX from 'xlsx';
 
 @Injectable({
@@ -26,6 +25,12 @@ export class ExportToExcelService {
     }
   }
 
+  /**
+   * Export an array of objects as JSON to an excel file as a table
+   * 
+   * @param arrayToExport The array that needs to be exported
+   * @param exportedFileName optional, name of the exported file
+   */
   arrayToExcel(arrayToExport: any[], exportedFileName?: string): void {
     let timeSpan = new Date().toISOString();
     let prefix = exportedFileName || 'ExportResult';
@@ -35,5 +40,4 @@ export class ExportToExcelService {
     XLSX.utils.book_append_sheet(workbook, worksheet, "export");
     XLSX.writeFile(workbook, `${filename}.xlsx`, { compression: true });
   }
-
 }

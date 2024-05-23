@@ -23,7 +23,6 @@ export class HeroService {
     )
   }
 
-  // Placeholders
   addHero(newHero: Hero): void {
   this._http.post<Hero>(this.url + 'api/SuperHero', newHero)
     .pipe(
