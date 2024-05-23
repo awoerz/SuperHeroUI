@@ -1,4 +1,4 @@
-import { AfterRenderOptions, Component, OnChanges, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, ViewChild, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { FormsModule } from '@angular/forms';
@@ -13,27 +13,25 @@ import { EditHeroDialogComponent } from '../../components/edit-hero-dialog/edit-
 import { CreateHeroDialogComponent } from '../../components/create-hero-dialog/create-hero-dialog.component';
 
 // Material UI Imports
-import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { provideNativeDateAdapter } from '@angular/material/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatSort, Sort, MatSortModule} from '@angular/material/sort';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatIconModule } from '@angular/material/icon';
+import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { DeleteHeroDialogComponent } from '../../components/delete-hero-dialog/delete-hero-dialog.component';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 
-
 @Component({
-  selector: 'app-home',
   standalone: true,
+  imports: [ FormsModule, MatDialogModule, MatTableModule, MatSortModule, MatDatepickerModule, MatButtonModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MatIconModule, MatPaginatorModule],
   providers: [provideNativeDateAdapter()],
-  imports: [MatTableModule, MatPaginatorModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MatButtonModule, MatIconModule, MatDatepickerModule, MatSortModule, FormsModule, RouterLink, RouterLinkActive ],
   templateUrl: './home.component.html',
+  selector: 'app-home',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {

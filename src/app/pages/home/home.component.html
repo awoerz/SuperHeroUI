@@ -2,7 +2,7 @@
 
 <div class="table-button-row">
     <div class="button-row">
-        <button (click)="openCreateDialog()" mat-flat-button color="primary">Add Hero</button>
+        <button mat-flat-button color="primary" (click)="openCreateDialog()">Add Hero</button>
         <button (click)="openEditDialog()" mat-flat-button color="primary">Edit Hero</button>
         <button (click)="openDeleteDialog()" mat-flat-button color="primary">Delete Hero</button>
         <button mat-flat-button color="primary" (click)="export()">
@@ -19,7 +19,7 @@
         }
     </mat-form-field>
 </div>
-<div class="mat-elevation-z8 table-margin">
+<div class="mat-elevation-z8">
     <table mat-table [dataSource]="currentHeroes" matSort [id]="tableId">
 
         <!-- Checkbox Column -->
