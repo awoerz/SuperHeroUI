@@ -1,7 +1,6 @@
 
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
-@use 'sass:map';
 @use '@angular/material' as mat;
 // Plus imports for other components in your app.
 
@@ -9,175 +8,121 @@
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
 @include mat.core();
-// Note: Color palettes are generated from primary: #f26a21, secondary: #75787b, tertiary: #21a9f2, neutral: #ffffff
-$_palettes: (
-  primary: (
-    0: #000000,
-    10: #360f00,
-    20: #581e00,
-    25: #6a2600,
-    30: #7c2e00,
-    35: #8f3600,
-    40: #a33e00,
-    50: #cb5000,
-    60: #ee671e,
-    70: #ff8c56,
-    80: #ffb596,
-    90: #ffdbcd,
-    95: #ffede7,
-    98: #fff8f6,
-    99: #fffbff,
-    100: #ffffff,
-  ),
-  secondary: (
-    0: #000000,
-    10: #001e2c,
-    20: #00344a,
-    25: #004059,
-    30: #004c69,
-    35: #00597a,
-    40: #00658b,
-    50: #0080ad,
-    60: #269bcd,
-    70: #4db6ea,
-    80: #7cd0ff,
-    90: #c4e7ff,
-    95: #e3f3ff,
-    98: #f5faff,
-    99: #fbfcff,
-    100: #ffffff,
-  ),
-  tertiary: (
-    0: #000000,
-    10: #001e30,
-    20: #00344f,
-    25: #003f5f,
-    30: #004b70,
-    35: #005882,
-    40: #006493,
-    50: #007eb8,
-    60: #0099df,
-    70: #37b4fe,
-    80: #8dcdff,
-    90: #cae6ff,
-    95: #e6f2ff,
-    98: #f6f9ff,
-    99: #fcfcff,
-    100: #ffffff,
-  ),
-  neutral: (
-    0: #000000,
-    10: #001f24,
-    20: #00363d,
-    25: #00424a,
-    30: #004f58,
-    35: #005b66,
-    40: #006874,
-    50: #008391,
-    60: #00a0b0,
-    70: #22bccf,
-    80: #4fd8eb,
-    90: #97f0ff,
-    95: #d0f8ff,
-    98: #edfcff,
-    99: #f6feff,
-    100: #ffffff,
-  ),
-  neutral-variant: (
-    0: #000000,
-    10: #251914,
-    20: #3b2d28,
-    25: #473833,
-    30: #53443d,
-    35: #5f4f49,
-    40: #6b5b54,
-    50: #85736c,
-    60: #a08d85,
-    70: #bba79f,
-    80: #d8c2ba,
-    90: #f5ded5,
-    95: #ffede7,
-    98: #fff8f6,
-    99: #fffbff,
-    100: #ffffff,
-  ),
-  error: (
-    0: #000000,
-    10: #410002,
-    20: #690005,
-    25: #7e0007,
-    30: #93000a,
-    35: #a80710,
-    40: #ba1a1a,
-    50: #de3730,
-    60: #ff5449,
-    70: #ff897d,
-    80: #ffb4ab,
-    90: #ffdad6,
-    95: #ffedea,
-    98: #fff8f7,
-    99: #fffbff,
-    100: #ffffff,
-  ),
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+$tmh-orange-palette: (
+  50: #ffece0,
+  100: #ffece0,
+  200: #ffab7a,
+  300: #ffab7a,
+  400: #f26a21,
+  500: #f26a21, 
+  600: #c74900, 
+  700: #c74900, 
+  800: #943600, 
+  900: #943600,
+  contrast: (
+    50: white,
+    100: white,
+    200: white, 
+    300: white, 
+    400: white, 
+    500: white, 
+    600: white, 
+    700: white, 
+    800: white, 
+    900: white,
+  ) 
 );
 
-$_rest: (
-  secondary: map.get($_palettes, secondary),
-  neutral: map.get($_palettes, neutral),
-  neutral-variant: map.get($_palettes,  neutral-variant),
-  error: map.get($_palettes, error),
+$tmh-gray-palette: (
+  50: #f7f7f8,
+  100: #f7f7f8,
+  200: #b6b8b9,
+  300: #b6b8b9,
+  400: #75787b,
+  500: #75787b, 
+  600: #616365, 
+  700: #616365, 
+  800: #434546, 
+  900: #434546,
+  contrast: (
+    50: white,
+    100: white,
+    200: white, 
+    300: white, 
+    400: white, 
+    500: white, 
+    600: white, 
+    700: white, 
+    800: white, 
+    900: white,
+  ) 
 );
-$_primary: map.merge(map.get($_palettes, primary), $_rest);
-$_tertiary: map.merge(map.get($_palettes, tertiary), $_rest);
 
-$light-theme: mat.define-theme((
-  color: (
-    theme-type: light,
-    primary: $_primary,
-    tertiary: $_tertiary,
-    use-system-variables: true,
-  ),
-  typography: (
-    use-system-variables: true,
-  ),
-));
+$tmh-error-palette: (
+  50: #f2cdd1,
+  100: #f2cdd1,
+  200: #f2cdd1,
+  300: #d93b3b,
+  400: #d93b3b,
+  500: #d93b3b, 
+  600: #d93b3b, 
+  700: #930011, 
+  800: #930011, 
+  900: #930011,
+  contrast: (
+    50: rgba(black, .87),
+    100: rgba(black, .87),
+    200: rgba(black, .87), 
+    300: rgba(black, .87), 
+    400: rgba(black, .87), 
+    500: rgba(black, .87), 
+    600: rgba(black, .87), 
+    700: white, 
+    800: white, 
+    900: white,
+  ) 
+);
 
-$dark-theme: mat.define-theme((
+$primary-orange: #f26a21;
+$primary-gray: #75787b;
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$angular-pg-primary: mat.define-palette($tmh-orange-palette, 500);
+$angular-pg-accent: mat.define-palette($tmh-gray-palette, 500);
+
+// The warn palette is optional (defaults to red).
+$angular-pg-warn: mat.define-palette($tmh-error-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$angular-pg-theme: mat.define-light-theme((
   color: (
-    theme-type: dark,
-    primary: $_primary,
-    tertiary: $_tertiary,
-    use-system-variables: true,
-  ),
-  typography: (
-    use-system-variables: true,
-  ),
-));
-// Define the theme object.
-$SuperHeroUI-theme: mat.define-theme((
-  color: (
-    theme-type: light,
-    primary: mat.$orange-palette,
-    tertiary: mat.$orange-palette,
-  ),
-  density: (
-    scale: 0,
+    primary: $angular-pg-primary,
+    accent: $angular-pg-accent,
+    warn: $angular-pg-warn,
   )
 ));
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-:root {
-  @include mat.all-component-themes($light-theme);
-}
+@include mat.all-component-themes($angular-pg-theme);
 
-// Comment out the line below if you want to use the pre-defined typography utility classes.
-// For more information: https://material.angular.io/guide/typography#using-typography-styles-in-your-application.
-// @include mat.typography-hierarchy($theme);
-
-// Comment out the line below if you want to use the deprecated `color` inputs.
-// @include mat.color-variants-backwards-compatibility($theme);
+/* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, Arial, sans-serif; }
+
+.btn-primary {
+  font-weight: 700;
+  background-color: black !important;
+  color: white !important;
+  font-size: 19px;
+  border: 1px solid white !important;
+  &:hover {
+    color: $primary-orange !important;
+    border: 1px solid $primary-orange !important;
+  }
+}
