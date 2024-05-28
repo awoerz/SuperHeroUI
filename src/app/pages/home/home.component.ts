@@ -65,11 +65,11 @@ export class HomeComponent {
 
   //Retrieve Heroes From API
   getHeroes() {
-    this._heroService.getHeroes().subscribe(res => {
-      this.tableData = res;
+    this._heroService.stateSubject$.subscribe(heroes => {
+      this.tableData = heroes;
       this.currentHeroes.data = this.tableData;
-      console.log(this.tableData)
-    });
+    })
+    this._heroService.getHeroes();
   }
 
   //Add Hero Button Functions
@@ -92,7 +92,7 @@ export class HomeComponent {
   
       dialogRef.afterClosed().subscribe(result => {
         this.selection.clear(); //This line is required to not break the select all button after closing the delete dialog.
-        this.getHeroes();
+        this._heroService.getHeroes()
       })
     } else if(this.selection.selected.length == 0) {
       alert('Please select a hear you\'d like to edit first')
@@ -112,7 +112,7 @@ export class HomeComponent {
   
       dialogRef.afterClosed().subscribe(result => {
         this.selection.clear(); //This line is required to not break the select all button after closing the delete dialog.
-        this.getHeroes();
+        this._heroService.getHeroes();
       })
     } else if(this.selection.selected.length == 0) {
       alert('Please select a hear you\'d like to delete first')

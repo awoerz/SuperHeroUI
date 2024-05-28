@@ -35,11 +35,9 @@ export class PaginationTestComponent {
   }
 
   getHeroesFromService() {
-    this._heroService.getHeroes().subscribe(res => {
-      if(res != undefined) {
-        this.heroServiceData = res;
-        this.dataSource.data = this.heroServiceData;
-      }
+    this._heroService.stateSubject$.subscribe(heroes => {
+      this.heroServiceData = heroes;
+      this.dataSource.data = this.heroServiceData;
     })
   }
 }

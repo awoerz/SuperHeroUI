@@ -1,3 +1,23 @@
+$primary-gray: #75787b;
+
 .container {
     margin: 0 6rem;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.footer {
+    position: relative;
+    bottom: 0px;
+    background-color: $primary-gray;
+    margin-top: auto;
+    padding: 0 6rem;
+    color: white;
+    display: flex;
+    align-items: center;
+    height: 6vh;
+    font-size: .8em;
 }

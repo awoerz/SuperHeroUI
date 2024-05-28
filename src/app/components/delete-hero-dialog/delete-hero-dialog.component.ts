@@ -36,6 +36,7 @@ export class DeleteHeroDialogComponent {
 
   confirmDelete() {
     this._heroService.deleteHero(this.heroToDelete.id);
+    this.dialogRef.close();
   }
 
 }

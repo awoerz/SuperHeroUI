@@ -1,10 +1,13 @@
 $primary-organge: #f26a21;
 
+h1 {
+    margin: 1rem 0 0;
+}
+
 .table-button-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 1rem;
     .button-row {
         display: flex;
         align-items: center;
@@ -21,6 +24,10 @@ $primary-organge: #f26a21;
             margin-right: 1rem;
         }
     }
+}
+
+.table-container {
+    margin-bottom: 2rem;
 }
 
 th[class*="mat-column-"] {

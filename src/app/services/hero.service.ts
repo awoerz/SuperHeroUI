@@ -1,20 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Hero } from '../models/hero';
-import { Observable, catchError, of } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, of, subscribeOn } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HeroService {
+  public stateSubject$ = new BehaviorSubject<Hero[]>([]);
+
   constructor(private _http: HttpClient) { }
 
   url = 'https://localhost:7168/';
 
-  getHeroes(): Observable<Hero[]> {
-    return this._http.get<Hero[]>(this.url + 'api/SuperHero').pipe(
-      catchError(this.handleError<Hero[]>('getHeroes'))
-    );
+  getHeroes(): void {
+    this._http.get<Hero[]>(this.url + 'api/SuperHero').subscribe(val => this.stateSubject$.next(val))
   }
   
   getHero(id: number): Observable<Hero> {

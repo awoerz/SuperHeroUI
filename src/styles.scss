@@ -89,15 +89,15 @@ $primary-orange: #f26a21;
 $primary-gray: #75787b;
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$angular-pg-primary: mat.define-palette($tmh-orange-palette, 500);
-$angular-pg-accent: mat.define-palette($tmh-gray-palette, 500);
+$angular-pg-primary: mat.m2-define-palette($tmh-orange-palette, 500);
+$angular-pg-accent: mat.m2-define-palette($tmh-gray-palette, 500);
 
 // The warn palette is optional (defaults to red).
-$angular-pg-warn: mat.define-palette($tmh-error-palette);
+$angular-pg-warn: mat.m2-define-palette($tmh-error-palette);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$angular-pg-theme: mat.define-light-theme((
+$angular-pg-theme: mat.m2-define-light-theme((
   color: (
     primary: $angular-pg-primary,
     accent: $angular-pg-accent,
@@ -112,8 +112,14 @@ $angular-pg-theme: mat.define-light-theme((
 
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, Arial, sans-serif; }
+html { height: 100%;}
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0; 
+  font-family: Roboto, Arial, sans-serif; 
+  min-height: 100vh;
+}
 
 .btn-primary {
   font-weight: 700;
