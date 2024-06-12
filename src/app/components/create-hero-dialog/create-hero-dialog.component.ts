@@ -12,7 +12,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
-
 @Component({
   selector: 'app-create-hero-dialog',
   standalone: true,
@@ -21,14 +20,13 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
   styleUrl: './create-hero-dialog.component.scss'
 })
 export class CreateHeroDialogComponent {
+
   heroCreateForm = new FormGroup({
     name: new FormControl<string>('', Validators.required),
     firstName: new FormControl<string>('', Validators.required),
     lastName: new FormControl<string>('', Validators.required),
     city: new FormControl<string>('', Validators.required)
   })
-
-
 
   constructor(    
     private _heroService: HeroService,

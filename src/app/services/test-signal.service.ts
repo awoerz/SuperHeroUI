@@ -10,6 +10,6 @@ export class TestSignalService {
   constructor() { }
 
   updateSignal(val: string) {
-    this.#signalValue.update(val => val)
+    this.#signalValue.set(val)
   }
 }

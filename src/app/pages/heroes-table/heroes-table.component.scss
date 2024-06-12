@@ -9,6 +9,7 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin: 1rem 0;
     .button-row {
         display: flex;
         align-items: center;
@@ -31,12 +32,18 @@ h1 {
     margin-bottom: 2rem;
 }
 
+tr {
+    height: 1.75rem;
+}
+
+
 th[class*="mat-column-"] {
     padding: .25em 1em;
     background-color: $primary-organge;
     color: white;
     font-weight: 500;
 }
+
 
 //::ng-deep needed to get color to change for sort arrow and had to add important to override default style
 ::ng-deep .mat-sort-header-arrow {

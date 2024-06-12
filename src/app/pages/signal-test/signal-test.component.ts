@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TestSubjectService } from '../../services/test-subject.service';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -7,6 +7,7 @@ import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angula
 //Material Imports
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { TestSignalService } from '../../services/test-signal.service';
 
 @Component({
   selector: 'app-signal-test',
@@ -16,21 +17,27 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './signal-test.component.scss'
 })
 export class SignalTestComponent {
+  // State related properties
+  //private _stateService = inject(TestSubjectService)
+  private _signalStateService = inject(TestSignalService)
+  state = computed(this._signalStateService.signalValue)
+
+  // Form properties
   stateForm = new FormGroup({
     updateState: new FormControl('', Validators.required)
   })
-  private _stateService = inject(TestSubjectService)
-  state = ''
-  constructor() {
-    this._stateService.stateSubject$.subscribe(res => {
-      this.state = res;
-    })
-  }
+
+  // constructor() {
+  //   this._stateService.stateSubject$.subscribe(res => {
+  //     this.state = res;
+  //   })
+  // }
 
   onSubmit(): void {
     let updatedState = this.stateForm.controls.updateState.value;
-    if(updatedState != null) {
-      this._stateService.updateStateSubject(updatedState)
+    if(updatedState != null) {  
+      this._signalStateService.updateSignal(updatedState)
+      console.log(this.state())
     }
     this.stateForm.reset()
   }

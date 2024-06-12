@@ -1,5 +1,5 @@
 import { Component, ViewChild, inject } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterModule} from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { FormsModule } from '@angular/forms';
 
@@ -11,6 +11,7 @@ import { ExportToExcelService } from '../../services/export-to-excel.service';
 // Other Components
 import { EditHeroDialogComponent } from '../../components/edit-hero-dialog/edit-hero-dialog.component';
 import { CreateHeroDialogComponent } from '../../components/create-hero-dialog/create-hero-dialog.component';
+import { DeleteHeroDialogComponent } from '../../components/delete-hero-dialog/delete-hero-dialog.component';
 
 // Material UI Imports
 import { provideNativeDateAdapter } from '@angular/material/core';
@@ -21,14 +22,13 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
-import { MatIcon, MatIconModule } from '@angular/material/icon';
-import { DeleteHeroDialogComponent } from '../../components/delete-hero-dialog/delete-hero-dialog.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   standalone: true,
-  imports: [ FormsModule, MatDialogModule, MatTableModule, MatSortModule, MatDatepickerModule, MatButtonModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MatIconModule, MatPaginatorModule],
+  imports: [ RouterModule, FormsModule, MatDialogModule, MatTableModule, MatSortModule, MatDatepickerModule, MatButtonModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MatIconModule, MatPaginatorModule],
   providers: [provideNativeDateAdapter()],
   templateUrl: './home.component.html',
   selector: 'app-home',
